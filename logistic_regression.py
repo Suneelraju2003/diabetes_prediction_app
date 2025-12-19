@@ -29,12 +29,6 @@ df = pd.read_csv('diabetes.csv')
 print("First 5 rows of the DataFrame:")
 print(df.head())
 
-"""**Reasoning**:
-I will display the concise summary of the DataFrame using `.info()`, generate descriptive statistics using `.describe()`, check for missing values using `.isnull().sum()`, and count duplicate rows using `.duplicated().sum()` to fulfill the next instructions of the subtask.
-
-
-"""
-
 print("\nDataFrame Info:")
 df.info()
 
@@ -46,12 +40,6 @@ print(df.isnull().sum())
 
 print("\nDuplicate Rows:")
 print(df.duplicated().sum())
-
-"""**Reasoning**:
-I will generate histograms for all numerical features in the DataFrame to visualize their distributions, which is the next step in the subtask instructions. I will iterate through each numerical column and create a histogram, ensuring appropriate titles and labels for readability.
-
-
-"""
 
 numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
 
@@ -65,25 +53,10 @@ for i, col in enumerate(numerical_cols):
 plt.tight_layout()
 plt.show()
 
-"""**Reasoning**:
-I will create a correlation heatmap to visualize the relationships between all numerical features in the DataFrame, as per the next instruction in the subtask. I will use `seaborn.heatmap` with a suitable colormap and display the correlation values.
-
-
-"""
-
 plt.figure(figsize=(10, 8))
 sns.heatmap(df[numerical_cols].corr(), annot=True, cmap='coolwarm', fmt='.2f')
 plt.title('Correlation Heatmap of Numerical Features')
 plt.show()
-
-"""## Preprocess Data
-
-### Subtask:
-Handle any missing values in the dataset (e.g., through imputation) and encode categorical variables if present. This step ensures the data is clean and in a suitable format for model training.
-
-**Reasoning**:
-Based on the previous exploratory data analysis, the dataset contains '0' values in several columns that logically cannot be zero (e.g., Glucose, BloodPressure, BMI, etc.). These '0's represent missing data. The first step of the subtask is to identify these columns and replace the '0' values with the median of each respective column to handle these 'missing' values appropriately. I will create a list of columns to be imputed and then use the `replace` and `median` functions.
-"""
 
 cols_with_zero = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
 
@@ -93,12 +66,6 @@ for col in cols_with_zero:
 
 print("After replacing 0s with median:")
 print(df[cols_with_zero].head())
-
-"""**Reasoning**:
-Now that the '0' values representing missing data have been handled, I will separate the features (independent variables) from the target variable ('Outcome') into `X` and `y` respectively. Then, I will initialize and apply `StandardScaler` to normalize the feature data in `X` for better model performance, as per the remaining instructions of the subtask.
-
-
-"""
 
 from sklearn.preprocessing import StandardScaler
 
@@ -115,15 +82,6 @@ X = scaler.fit_transform(X)
 print("Shape of X after scaling:", X.shape)
 print("Shape of y:", y.shape)
 print("First 5 rows of scaled X:\n", X[:5])
-
-"""## Build Logistic Regression Model
-
-### Subtask:
-Build a logistic regression model using appropriate libraries, such as scikit-learn. Split the data into training and testing sets, then train the logistic regression model using the training data.
-
-**Reasoning**:
-I will import the necessary libraries, split the data into training and testing sets, initialize a Logistic Regression model with specified parameters, and then train the model using the training data, as per the instructions.
-"""
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -144,15 +102,6 @@ model.fit(X_train, y_train)
 
 print("Logistic Regression model trained successfully.")
 
-"""## Evaluate Model Performance
-
-### Subtask:
-Evaluate the trained model's performance on the testing data. Calculate key metrics such as accuracy, precision, recall, F1-score, and ROC-AUC score. Additionally, visualize the Receiver Operating Characteristic (ROC) curve to assess the model's ability to discriminate between classes.
-
-**Reasoning**:
-I will make predictions on the test data and calculate key classification metrics (accuracy, precision, recall, F1-score) as per the instructions. This involves importing necessary libraries from `sklearn.metrics` and then using the trained model to predict class labels and probabilities.
-"""
-
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve
 
 # Make predictions on the test data
@@ -169,12 +118,6 @@ print(f"Accuracy: {accuracy:.4f}")
 print(f"Precision: {precision:.4f}")
 print(f"Recall: {recall:.4f}")
 print(f"F1-Score: {f1:.4f}")
-
-"""**Reasoning**:
-Now, I will calculate and print the ROC-AUC score, then compute the False Positive Rate (FPR), True Positive Rate (TPR), and thresholds for the ROC curve. Finally, I will plot the ROC curve, labeling the axes and including the ROC-AUC score in the title as per the remaining instructions.
-
-
-"""
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -196,15 +139,6 @@ plt.title('Receiver Operating Characteristic (ROC) Curve')
 plt.legend()
 plt.grid(True)
 plt.show()
-
-"""## Interpret Model Coefficients
-
-### Subtask:
-Interpret the coefficients of the logistic regression model to understand the impact and significance of each feature in predicting the target variable. Discuss which features are most influential in determining the outcome.
-
-**Reasoning**:
-I will extract the coefficients from the trained logistic regression model and combine them with the feature names into a pandas DataFrame. Then, I will sort this DataFrame by the absolute value of the coefficients to identify and display the most influential features as per the instructions.
-"""
 
 import pandas as pd
 
@@ -228,92 +162,15 @@ coef_df = coef_df.sort_values(by='Absolute_Coefficient', ascending=False).drop('
 print("Model Coefficients and their influence:")
 print(coef_df)
 
-"""## Deploy with Streamlit
-
-### Subtask:
-Develop a Streamlit application in Python. The app should load the trained logistic regression model and provide an interface for users to input data for new predictions. This step will enable interactive deployment of the model.
-
-**Reasoning**:
-I will save the trained logistic regression model and the StandardScaler to files using `joblib` so they can be loaded later by the Streamlit application.
-"""
-
 import joblib
 
-# Save the trained model
+
 joblib.dump(model, 'logistic_regression_model.pkl')
 print("Logistic Regression model saved as 'logistic_regression_model.pkl'")
 
-# Save the StandardScaler
+
 joblib.dump(scaler, 'scaler.pkl')
 print("StandardScaler saved as 'scaler.pkl'")
-
-"""**Reasoning**:
-Now that the model and scaler are saved, I will provide the Python code for the Streamlit application. This code will load the saved model and scaler, create a user interface for inputting features, make predictions, and display the results, fulfilling the remaining instructions of the subtask.
-
-
-"""
-
-import streamlit as st
-import joblib
-import pandas as pd
-import numpy as np
-
-# Load the trained model and scaler
-model = joblib.load('logistic_regression_model.pkl')
-scaler = joblib.load('scaler.pkl')
-
-# Define the feature names in the correct order
-feature_names = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
-
-# Streamlit App Title
-st.title('Diabetes Prediction App')
-st.write('Enter the patient\'s details below to predict the likelihood of diabetes.')
-
-# Input fields for features
-pregnancies = st.number_input('Pregnancies (Number of times pregnant)', min_value=0, max_value=17, value=1)
-glucose = st.number_input('Glucose (Plasma glucose concentration a 2 hours in an oral glucose tolerance test)', min_value=0, max_value=200, value=120)
-blood_pressure = st.number_input('Blood Pressure (Diastolic blood pressure (mm Hg))', min_value=0, max_value=122, value=70)
-skin_thickness = st.number_input('Skin Thickness (Triceps skin fold thickness (mm))', min_value=0, max_value=99, value=20)
-insulin = st.number_input('Insulin (2-Hour serum insulin (mu U/ml))', min_value=0, max_value=846, value=79)
-bmi = st.number_input('BMI (Body mass index (weight in kg/(height in m)^2))', min_value=0.0, max_value=67.1, value=30.0, format="%.1f")
-dpf = st.number_input('Diabetes Pedigree Function', min_value=0.0, max_value=2.5, value=0.4, format="%.3f")
-age = st.number_input('Age (years)', min_value=1, max_value=120, value=30)
-
-# Prediction button
-if st.button('Predict Diabetes'):
-    # Create a DataFrame from user inputs
-    input_data = pd.DataFrame([[pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, dpf, age]],
-                              columns=feature_names)
-
-    # Scale the input data
-    scaled_input_data = scaler.transform(input_data)
-
-    # Make prediction
-    prediction = model.predict(scaled_input_data)
-    prediction_proba = model.predict_proba(scaled_input_data)[0]
-
-    st.subheader('Prediction Result:')
-    if prediction[0] == 1:
-        st.error(f'The model predicts: **DIABETIC**')
-        st.write(f'Probability of Diabetes: **{prediction_proba[1]:.2f}**')
-    else:
-        st.success(f'The model predicts: **NON-DIABETIC**')
-        st.write(f'Probability of Non-Diabetes: **{prediction_proba[0]:.2f}**')
-
-st.markdown("""
-**How to run this app:**
-1. Save the code above as `streamlit_app.py`.
-2. Ensure `logistic_regression_model.pkl` and `scaler.pkl` are in the same directory.
-3. Open your terminal or command prompt.
-4. Navigate to the directory where you saved the files.
-5. Run the command: `streamlit run streamlit_app.py`
-""")
-
-"""**Reasoning**:
-The previous code failed due to an unterminated string literal in the `st.write` function. I will fix this by escaping the apostrophe in `patient's` with a backslash to correctly define the string.
-
-
-"""
 
 import streamlit as st
 import joblib
