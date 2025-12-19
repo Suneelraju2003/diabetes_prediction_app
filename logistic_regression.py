@@ -43,6 +43,40 @@ print(df.duplicated().sum())
 
 numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
 
+import streamlit as st
+
+# Page title
+st.title("Data Visualization Dashboard")
+
+# Show data
+st.subheader("Dataset Preview")
+st.dataframe(df.head())
+
+# ------------------------------
+# Histogram
+# ------------------------------
+st.subheader("Histogram")
+fig1, ax1 = plt.subplots(figsize=(8,5))
+df.hist(ax=ax1)
+st.pyplot(fig1)
+
+# ------------------------------
+# Box Plot
+# ------------------------------
+st.subheader("Box Plot")
+fig2, ax2 = plt.subplots(figsize=(10,4))
+sns.boxplot(data=df, ax=ax2)
+st.pyplot(fig2)
+
+# ------------------------------
+# Correlation Heatmap
+# ------------------------------
+st.subheader("Correlation Heatmap")
+fig3, ax3 = plt.subplots(figsize=(8,6))
+sns.heatmap(df.corr(), annot=True, cmap="coolwarm", ax=ax3)
+st.pyplot(fig3)
+
+
 plt.figure(figsize=(20, 15))
 for i, col in enumerate(numerical_cols):
     plt.subplot(3, 3, i + 1) # Adjust subplot grid as needed
