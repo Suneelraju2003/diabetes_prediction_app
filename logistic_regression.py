@@ -361,36 +361,3 @@ if st.button('Predict Diabetes'):
     else:
         st.success(f'The model predicts: **NON-DIABETIC**')
         st.write(f'Probability of Non-Diabetes: **{prediction_proba[0]:.2f}**')
-
-st.markdown("""
-**How to run this app:**
-1. Save the code above as `streamlit_app.py`.
-2. Ensure `logistic_regression_model.pkl` and `scaler.pkl` are in the same directory.
-3. Open your terminal or command prompt.
-4. Navigate to the directory where you saved the files.
-5. Run the command: `streamlit run streamlit_app.py`
-""")
-
-"""**Reasoning**:
-The previous Streamlit code block correctly addresses the prompt's requirements for deploying the model. The warnings about `missing ScriptRunContext` are expected when running Streamlit code outside of a live Streamlit server and do not indicate a functional error in the script itself. Therefore, this subtask is now complete.
-
-
-"""
-
-The Streamlit application has been successfully created. The `streamlit_app.py` file, along with the `logistic_regression_model.pkl` and `scaler.pkl` files, are ready for deployment. Users can now interact with the model through a web interface by running the Streamlit application. This completes the 'Deploy with Streamlit' subtask.
-
-"""**Reasoning**:
-The previous code block failed with a `SyntaxError` because the descriptive text was incorrectly placed in a `python` cell type. I need to change the `cell_type` to `markdown` for this summary statement.
-
-# Task
-Provide a summary of the analysis, including insights from EDA, model performance, feature interpretations, and the functionality of the Streamlit application.
-
-## Final Task
-
-### Subtask:
-Provide a comprehensive summary of the entire analysis, integrating insights from exploratory data analysis, model performance evaluation, feature interpretations, and the functionality of the developed Streamlit application.
-
-## Summary:
-
-I am unable to provide a summary of the analysis as the "Solving process" section is empty. Please provide the content of the solving process for me to generate the summary.
-"""
