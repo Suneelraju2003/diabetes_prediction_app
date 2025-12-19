@@ -46,11 +46,11 @@ numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
 import streamlit as st
 
 # Page title
-st.title("Data Visualization Dashboard")
+st.title('Diabetes Prediction App')
+st.subheader("Data Visualization Dashboard")
 
 # Show data
-st.subheader("Dataset Preview")
-st.dataframe(df())
+
 st.subheader("Dataset Statistics")
 st.dataframe(df.describe())
 
@@ -221,7 +221,6 @@ scaler = joblib.load('scaler.pkl')
 feature_names = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 
 # Streamlit App Title
-st.title('Diabetes Prediction App')
 st.write('Enter the patient\'s details below to predict the likelihood of diabetes.')
 
 # Input fields for features
