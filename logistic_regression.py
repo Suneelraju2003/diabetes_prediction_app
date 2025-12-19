@@ -43,6 +43,27 @@ print(df.duplicated().sum())
 
 numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
 
+import io
+import sys
+
+# Display DataFrame Info
+st.subheader('DataFrame Info:')
+# Create a StringIO object to capture output
+info_buffer = io.StringIO()
+# Temporarily redirect sys.stdout to the buffer
+sys.stdout = info_buffer
+# Call df.info() which will write to info_buffer
+df.info()
+# Restore sys.stdout to its original value
+sys.stdout = sys.__stdout__
+# Get the captured output
+info_output = info_buffer.getvalue()
+st.text(info_output)
+
+# Display Descriptive Statistics
+st.subheader('Descriptive Statistics:')
+st.dataframe(df.describe())
+
 plt.figure(figsize=(20, 15))
 for i, col in enumerate(numerical_cols):
     plt.subplot(3, 3, i + 1) # Adjust subplot grid as needed
