@@ -50,9 +50,7 @@ st.title("Data Visualization Dashboard")
 
 # Show data
 st.subheader("Dataset Preview")
-st.dataframe(df.head())
-st.subheader("Dataset Info")
-st.dataframe(df.info())
+st.dataframe(df())
 st.subheader("Dataset Statistics")
 st.dataframe(df.describe())
 
