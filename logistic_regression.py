@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the dataset
-df = pd.read_csv('/content/diabetes.csv')
+df = pd.read_csv('diabetes.csv')
 
 # Display the first 5 rows
 print("First 5 rows of the DataFrame:")
