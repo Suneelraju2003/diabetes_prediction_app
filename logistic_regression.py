@@ -267,7 +267,7 @@ feature_names = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'In
 
 # Streamlit App Title
 st.title('Diabetes Prediction App')
-st.write('Enter the patient\''s details below to predict the likelihood of diabetes.')
+st.write('Enter the patient\'s details below to predict the likelihood of diabetes.')
 
 # Input fields for features
 pregnancies = st.number_input('Pregnancies (Number of times pregnant)', min_value=0, max_value=17, value=1)
